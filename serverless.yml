@@ -1,0 +1,33 @@
+# 'service' is the name of the service
+service: PReview
+
+# 'custom' = define custom variables used elsewhere in the yaml config
+custom:
+  currentRegion: ${file(./config.json):region}
+
+# 'provider' specifies where to deploy the service. Aka deploy to 'aws'
+provider:
+  name: aws
+  runtime: nodejs6.10
+  # ${self:custom.currentRegion} references the 'custom' field in this file
+  # it grabs the 'currentRegion' key and places it in the 'region' key defined below
+  region: ${self:custom.currentRegion}
+  stage: prod
+  timeout: 10
+  # 'environment' is where you define any process.env environment variables needed in code
+  environment:
+    GITHUB_WEBHOOK_SECRET: ${file(./config.json):GITHUB_WEBHOOK_SECRET}
+    GITHUB_API_TOKEN: ${file(./config.json):GITHUB_API_TOKEN}
+    GITHUB_USERNAME: ${file(./config.json):GITHUB_USERNAME}
+    GITHUB_REPO: ${file(./config.json):GITHUB_REPO}
+    NOW_TOKEN: ${file(./config.json):NOW_TOKEN}
+
+# 'functions' references all the functions and events in the service
+functions:
+  deployProject:
+    handler: handler.deployProject
+    events:
+      - http:
+          path: webhook
+          method: post
+          cors: true

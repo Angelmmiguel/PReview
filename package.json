@@ -1,0 +1,24 @@
+{
+  "name": "preview",
+  "version": "1.0.0",
+  "description": "Preview your pull requests in a real deployment",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angelmmiguel/PReview.git"
+  },
+  "author": "Angel M Miguel <angel@laux.es>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Angelmmiguel/PReview/issues"
+  },
+  "homepage": "https://github.com/Angelmmiguel/PReview#readme",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "download": "^6.2.1",
+    "glob": "^7.1.2",
+    "now-client": "^0.7.0",
+    "recursive-readdir": "^2.2.1"
+  }
+}
